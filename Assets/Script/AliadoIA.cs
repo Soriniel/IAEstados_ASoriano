@@ -9,6 +9,8 @@ public class EnemigoIA: MonoBehaviour
 
     void Start()
     {
+        Renderer renderer = GetComponent<Renderer>();
+        renderer.material.color = Color.magenta;
         FSM = new Vigilar(this); // Ahora se le pasa el EnemigoIA al constructor
     }
 

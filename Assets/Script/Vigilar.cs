@@ -6,11 +6,17 @@ using UnityEngine.AI;
 // Constructor para VIGILAR
 public class Vigilar : Estado
 {
+    public GameObject jugador;
+    public GameObject aliado;
+
     public Vigilar(EnemigoIA enemigo) : base()
     {
+        jugador = GameObject.FindWithTag("Player");
+        aliado = GameObject.FindWithTag("Aliade");
         Debug.Log("VIGILAR");
         nombre = ESTADO.VIGILAR;
         inicializarVariables(enemigo);
+
     }
 
     public override void Entrar()
@@ -23,9 +29,9 @@ public class Vigilar : Estado
     public override void Actualizar()
     {
         // Le decimos que se vaya moviendo y patrullando...
-
         if (PuedeVerJugador())
         {
+            Debug.Log("Te sigo Rey");
             siguienteEstado = new Atacar(enemigoIA); // Se pasa la referencia de enemigoIA
             faseActual = EVENTO.SALIR;
         }
@@ -40,8 +46,13 @@ public class Vigilar : Estado
     // Puede el NPC ver el jugador?
     public bool PuedeVerJugador()
     {
-        // ...        
-        return false; // DE MOMENTO NO
+        Debug.Log("Maricon");
+        if (Vector3.Distance(aliado.transform.position, jugador.transform.position) <= 10f)
+        {
+            return true;
+        }
+            // ...        
+            return false; // DE MOMENTO NO
     }
 }
 
