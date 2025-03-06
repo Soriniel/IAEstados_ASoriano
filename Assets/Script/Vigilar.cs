@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.GraphicsBuffer;
 
 // Constructor para VIGILAR
 public class Vigilar : Estado
 {
+    public Color morado = Color.magenta;
     public GameObject jugador;
-    public GameObject aliado;
 
     public Vigilar(EnemigoIA enemigo) : base()
     {
@@ -21,6 +22,8 @@ public class Vigilar : Estado
 
     public override void Entrar()
     {
+        enemigoIA.GetComponent<Renderer>().material.color = morado;
+        animator.SetBool("Caminar", false);
         // Le pondríamos la animación de andar, calcular los puntos por los que patrulla, etc...
 
         base.Entrar();
@@ -30,7 +33,8 @@ public class Vigilar : Estado
     {
         // Le decimos que se vaya moviendo y patrullando...
         if (PuedeVerJugador())
-        {
+        {            
+            animator.SetBool("Caminar", true);
             Debug.Log("Te sigo Rey");
             siguienteEstado = new Atacar(enemigoIA); // Se pasa la referencia de enemigoIA
             faseActual = EVENTO.SALIR;
@@ -46,7 +50,7 @@ public class Vigilar : Estado
     // Puede el NPC ver el jugador?
     public bool PuedeVerJugador()
     {
-        Debug.Log("Maricon");
+        Debug.Log("NO TE VEOOOO");
         if (Vector3.Distance(aliado.transform.position, jugador.transform.position) <= 10f)
         {
             return true;

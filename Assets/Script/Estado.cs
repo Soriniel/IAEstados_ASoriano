@@ -6,17 +6,21 @@ public class Estado
 {
 
     public EnemigoIA enemigoIA;
+    public Animator animator;
+    public GameObject aliado;
 
     // PARA ACCEDER A LOS GAMEOBJECTS
     public void inicializarVariables(EnemigoIA _enemigoIA)
     {
         enemigoIA = _enemigoIA;
+        aliado = GameObject.FindWithTag("Aliade");
+        animator = aliado.GetComponent<Animator>();
     }
 
     // 'ESTADOS' que tiene el NPC
     public enum ESTADO
     {
-        VIGILAR, ATACAR
+        VIGILAR, ATACAR, ATACARENEMIGO
     };
 
     // 'EVENTOS' - En que parte nos encontramos del estado
